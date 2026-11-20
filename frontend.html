@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <title>Chat — Project-ID-009</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1220;
+      color: #e8edf5;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    button, input { font: inherit; }
+    .app { width: min(1050px, 100%); height: min(720px, calc(100vh - 48px)); min-height: 520px; display: grid; grid-template-columns: 300px 1fr; overflow: hidden; border: 1px solid #273449; border-radius: 20px; background: #111b2b; box-shadow: 0 24px 80px #0007; }
+    aside { display: flex; flex-direction: column; border-right: 1px solid #273449; background: #0f1928; }
+    .brand, .profile, .chat-header { display: flex; align-items: center; gap: 12px; padding: 20px; }
+    .brand { justify-content: space-between; }
+    .brand h1 { margin: 0; font-size: 18px; letter-spacing: -.03em; }
+    .brand small, .muted, time { color: #91a0b5; }
+    .search { margin: 0 16px 16px; padding: 10px 12px; border: 1px solid #2a384d; border-radius: 10px; outline: none; background: #162235; color: inherit; }
+    .search:focus, .composer input:focus { border-color: #6d8cff; }
+    .contact { width: 100%; display: flex; align-items: center; gap: 12px; padding: 13px 16px; border: 0; text-align: left; color: inherit; background: transparent; cursor: pointer; }
+    .contact:hover, .contact.active { background: #1b2940; }
+    .contact-copy { flex: 1; min-width: 0; }
+    .contact-copy strong, .contact-copy span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .contact-copy span { margin-top: 4px; color: #91a0b5; font-size: 13px; }
+    .avatar { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; color: #fff; font-weight: 700; background: linear-gradient(135deg, #6d8cff, #ad70ed); }
+    .avatar.green { background: linear-gradient(135deg, #24b88a, #3c9fce); }
+    .avatar.orange { background: linear-gradient(135deg, #f39855, #e75e83); }
+    .profile { margin-top: auto; border-top: 1px solid #273449; }
+    .profile strong, .profile span { display: block; }
+    .profile span { margin-top: 4px; font-size: 13px; color: #91a0b5; }
+    main { min-width: 0; display: flex; flex-direction: column; }
+    .chat-header { border-bottom: 1px solid #273449; }
+    .chat-header strong, .chat-header span { display: block; }
+    .chat-header span { margin-top: 4px; font-size: 13px; color: #67d7a5; }
+    .messages { flex: 1; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; padding: 24px; }
+    .day { align-self: center; padding: 6px 10px; border-radius: 99px; background: #1a273a; color: #91a0b5; font-size: 12px; }
+    .bubble { max-width: min(75%, 480px); padding: 12px 14px; border: 1px solid #2a384d; border-radius: 4px 16px 16px; background: #1a273a; line-height: 1.5; overflow-wrap: anywhere; }
+    .bubble.mine { align-self: flex-end; border: 0; border-radius: 16px 4px 16px 16px; background: #526fe0; }
+    .bubble time { display: block; margin-top: 6px; color: #d3dcf2; font-size: 11px; text-align: right; }
+    .composer { display: flex; gap: 10px; padding: 16px 20px; border-top: 1px solid #273449; }
+    .composer input { flex: 1; min-width: 0; padding: 12px 14px; border: 1px solid #2a384d; border-radius: 12px; outline: none; background: #162235; color: inherit; }
+    .composer button { padding: 0 18px; border: 0; border-radius: 12px; color: white; font-weight: 650; background: #637df0; cursor: pointer; }
+    .composer button:hover { background: #7690ff; }
+    @media (max-width: 640px) {
+      body { padding: 0; }
+      .app { width: 100%; height: 100vh; min-height: 0; grid-template-columns: 76px 1fr; border: 0; border-radius: 0; }
+      .brand { justify-content: center; padding: 20px 8px; }
+      .brand h1, .brand small, .search, .contact-copy, .profile-copy { display: none; }
+      .contact { justify-content: center; padding: 12px 8px; }
+      .profile { justify-content: center; padding: 16px 8px; }
+      .messages { padding: 18px 12px; }
+      .bubble { max-width: 88%; }
+      .composer { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside aria-label="Conversations">
+      <header class="brand"><div><h1>Chat</h1><small>Project-ID-009</small></div><span aria-hidden="true">✦</span></header>
+      <input class="search" type="search" placeholder="Search conversations" aria-label="Search conversations">
+      <button class="contact active" type="button" aria-current="true">
+        <span class="avatar">JM</span><span class="contact-copy"><strong>Jordan Miles</strong><span>Sounds good, see you then!</span></span>
+      </button>
+      <button class="contact" type="button"><span class="avatar green">AK</span><span class="contact-copy"><strong>Alex Kim</strong><span>Sent a photo</span></span></button>
+      <button class="contact" type="button"><span class="avatar orange">SR</span><span class="contact-copy"><strong>Sam Rivera</strong><span>Thanks! 🙌</span></span></button>
+      <div class="profile"><span class="avatar">AM</span><div class="profile-copy"><strong>Aditya Mishra</strong><span>Available</span></div></div>
+    </aside>
+    <main>
+      <header class="chat-header"><span class="avatar">JM</span><div><strong>Jordan Miles</strong><span>Online</span></div></header>
+      <section class="messages" id="messages" aria-label="Messages" aria-live="polite">
+        <div class="day">Today</div>
+        <div class="bubble">Hey! Are we still meeting to work on the chat app today?<time>10:24 AM</time></div>
+        <div class="bubble mine">Yes! I’ve been polishing the new interface. Want to review it together?<time>10:26 AM</time></div>
+        <div class="bubble">Sounds good, see you then!<time>10:28 AM</time></div>
+      </section>
+      <form class="composer" id="message-form">
+        <input id="message-input" type="text" placeholder="Write a message…" autocomplete="off" aria-label="Write a message" required>
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+  <script>
+    const form = document.querySelector('#message-form');
+    const input = document.querySelector('#message-input');
+    const messages = document.querySelector('#messages');
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble mine';
+      bubble.append(document.createTextNode(text));
+      const time = document.createElement('time');
+      time.textContent = new Intl.DateTimeFormat([], { hour: 'numeric', minute: '2-digit' }).format(new Date());
+      bubble.append(time);
+      messages.append(bubble);
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+      input.focus();
+    });
+  </script>
+</body>
+</html>
